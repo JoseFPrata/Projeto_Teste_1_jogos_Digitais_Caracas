@@ -2,11 +2,16 @@ package com.prata.web_corrida.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Corrida implements Serializable {
@@ -19,6 +24,18 @@ public class Corrida implements Serializable {
 	private String nome;
 	private String Descricao;
 	
+	
+	
+	
+	@ManyToMany
+	@JoinTable(name = "Corrida_Carro", joinColumns = @JoinColumn(name = "corrida_id"), inverseJoinColumns = @JoinColumn(name = "carro_id"))
+	private Set<Carro>  carros = new HashSet<>();
+	
+
+	public Set<Carro> getCarros() {
+		return carros;
+	}
+
 	public Corrida() {
 		
 	}
@@ -66,6 +83,9 @@ public class Corrida implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -91,6 +111,7 @@ public class Corrida implements Serializable {
 			return false;
 		return true;
 	}
+
 	
 	
 

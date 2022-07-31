@@ -52,6 +52,18 @@ class TestConfig implements CommandLineRunner{
 		
 		corridaRepository.saveAll(Arrays.asList(co1,co2));
 		
+		//abaixo associamos os objetos na tabela CarroCorrida criada pelo JoinTable. associamos os carros nas corridas e salvamos
+		co1.getCarros().add(c1);  // esse método getCorre é que foi adicionado em Carro no relacionamento entre carro e corrida
+		co1.getCarros().add(c2);
+		co2.getCarros().add(c1);
+		
+		
+		corridaRepository.saveAll(Arrays.asList(co1,co2));
+		
+		
+		
+		
+		
 	} 
 	
 	

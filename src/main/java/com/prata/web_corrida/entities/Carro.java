@@ -1,13 +1,18 @@
 package com.prata.web_corrida.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Carro implements Serializable {
@@ -25,6 +30,14 @@ public class Carro implements Serializable {
 	//@JsonIgnore   // Poderia ficar aqui que traria o mesmo resultado que se ficasse somente sobre a lista(carros) de associação na entidade Jogador 
 	private Jogador usuario;
 	
+	@JsonIgnore
+	@ManyToMany(mappedBy ="carros")   // Esse é o nome da coleção que está em Corrida
+	private Set<Corrida>  corridas = new HashSet<>();
+	
+	
+	
+	
+
 	public Carro() {
 		
 	}
@@ -38,8 +51,22 @@ public class Carro implements Serializable {
 		this.usuario = usuario;
 	}
 
+	
 
 
+	public Set<Corrida> getCorridas() {
+		return corridas;
+	}
+
+	public Jogador getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Jogador usuario) {
+		this.usuario = usuario;
+	}
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -76,10 +103,7 @@ public class Carro implements Serializable {
 		return usuario;
 	}
 
-	public void setUsuarios(Jogador usuario) {
-		this.usuario = usuario;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
