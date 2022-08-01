@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.prata.web_corrida.entities.Carro;
 import com.prata.web_corrida.entities.Corrida;
 import com.prata.web_corrida.entities.Jogador;
+import com.prata.web_corrida.entities.Personagem;
 import com.prata.web_corrida.repositories.CarroRepository;
 import com.prata.web_corrida.repositories.CorridaRepository;
 import com.prata.web_corrida.repositories.JogadorRepository;
@@ -61,7 +62,9 @@ class TestConfig implements CommandLineRunner{
 		corridaRepository.saveAll(Arrays.asList(co1,co2));
 		
 		
-		
+		Personagem pers1 = new Personagem(null, "Xuba", "valente xuba", j2);
+		j2.setPerson(pers1);
+		jogadorRepository.save(j2);
 		
 		
 	} 

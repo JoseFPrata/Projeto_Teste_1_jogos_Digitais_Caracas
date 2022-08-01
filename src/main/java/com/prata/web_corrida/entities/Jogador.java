@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,8 +28,14 @@ public class Jogador implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "usuario")  // usuario é o nome que está na classe Carro
     private List<Carro> carros = new ArrayList<>(); // como é uma coleção já temos que instanciar
+    
+    @OneToOne(mappedBy = "joga" , cascade = CascadeType.ALL)
+    private Personagem person;
+    
+    
    
-    public Jogador() {
+   
+	public Jogador() {
     	
     }
 
@@ -61,6 +69,14 @@ public class Jogador implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	 public Personagem getPerson() {
+			return person;
+		}
+
+		public void setPerson(Personagem person) {
+			this.person = person;
+		}
 
 	@Override
 	public int hashCode() {
